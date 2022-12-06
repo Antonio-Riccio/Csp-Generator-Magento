@@ -1,21 +1,53 @@
-# Csp-Generetor-Magento
-this script allows you to automatically generate a csp_whitelist.xml file
+CspGeneretor
+======
+
+This script allows you to generate magento CSP module with few simple clicks.
+Form creation is completely dynamic.
+The module version, name, report type, and soon also the policy value id.
+The id can be of two types incremental, from 0 to X or by hostname, ex id=cloudflare host=cloudflare.com
+
+In the script there is already a default host list but using a log file you can also generate a custom host list which will be inserted in the csp_whitelist.xml file. (the script automatically recognizes the type CSP Code)
+
+The default list will be updated over time to simplify module creation
+
+# Help
+Usage: CspGeneretor.py [-h] [--nameModule NAMEMODULE] [--fileLog FILELOG] [--version VERSION] [--setId SETID]
+               [--trt TRT] [--tra TRA]
+
+
+options:
+
+  -h, --help            show this help message and exit
+  
+  --nameModule          Name Module CSP
+  
+  --fileLog FILELOG     Path file Log
+  
+  --version VERSION     Version Module
+  
+  --setId SETID         Id value (for the moment it is only numerical)
+  
+  --trt TRT             Type report storefront
+  
+  --tra TRA             Type report admin
 
 Giude:
   # Step 1
-  Using DevTool for save log or using default whitelist
+  Using DevTool for save log or using default whitelist (Right click on log in console and save file)
 
   # Step 2
   Run the script and insert
-  1. Name Module 
-  2. Set Report only or Restrict mode 
-  3. Path file log saved in the step 1 / nothing if you chose using default whitelist
-
+  1. Name Module --nameModule
+  2. Add log file name --fileLog (if needed)
+  3. Add version --version (by default it is set to 1)
+  4. Add type Id --setId (0=number 1=name Host for the moment it is only numerical)
+  5. Add value for type report storefront --trt (0 or 1)
+  6. Add value for type report admin --tra (0 or 1)
+  
   # Step 3 
-  1. Import folder generated 
-  2. apply database updates by running `php bin/magento setup:upgrade`
-  3. Flush the cache by running `php bin/magento cache:flush`
-  4. Good job
+  1. Import Module On Project 
+  2. Run `php bin/magento setup:upgrade`, `php bin/magento setup:di:compile` and `php bin/magento cache:flush`
+  3. Good job
 
 ___
 
