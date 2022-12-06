@@ -17,6 +17,8 @@ Giude:
   3. Flush the cache by running `php bin/magento cache:flush`
   4. Good job
 
+___
+
 #Info
 
 default-src -> The default policy. 
