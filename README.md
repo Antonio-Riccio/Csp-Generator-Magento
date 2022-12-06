@@ -3,13 +3,13 @@ this script allows you to automatically generate a csp_whitelist.xml file
 
 Giude:
   # Step 1
-  Using DevTool for save log
+  Using DevTool for save log or using default whitelist
 
   # Step 2
   Run the script and insert
   1. Name Module 
   2. Set Report only or Restrict mode 
-  3. Path file log saved in the step 1
+  3. Path file log saved in the step 1 / nothing if you chose using default whitelist
 
   # Step 3 
   1. Import folder generated 
