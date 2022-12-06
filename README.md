@@ -83,9 +83,9 @@ options:
 
 ---------------------------
 
-- # Set CSP Works
+# Type Content Security Policy:
 
-- report – only – Magento reports the policy violations but does not act upon it. It is mainly used for debugging. CSP works in this mode by default.
+- report only – Magento reports the policy violations but does not act upon it. It is mainly used for debugging. CSP works in this mode by default.
 
 - restrict mode – Magento acts in the case of policy violations.
 
