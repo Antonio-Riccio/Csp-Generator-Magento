@@ -31,7 +31,6 @@ options:
   
   --tra TRA             Type report admin
 
-Giude:
   # Step 1
   Using DevTool for save log or using default whitelist (Right click on log in console and save file)
 
@@ -49,7 +48,7 @@ Giude:
   2. Run `php bin/magento setup:upgrade`, `php bin/magento setup:di:compile` and `php bin/magento cache:flush`
   3. Good job
 
-___
+---------------------------
 
 # Info
 
@@ -80,18 +79,21 @@ ___
 
 - connect-src	-> Defines the sources that can be loaded using script interfaces.
 
-___
+---------------------------
+
 - # Set CSP Works
 
 - report – only – Magento reports the policy violations but does not act upon it. It is mainly used for debugging. CSP works in this mode by default.
 
 - restrict mode – Magento acts in the case of policy violations.
 
-___
-# Status
+---------------------------
 
-# Type CSP Code
-- # Work
+# Status Script
+
+### Type CSP Code
+- ## Work
+
 - script-src
 - style-src
 - font-src
@@ -99,7 +101,8 @@ ___
 - connect-src
 - img-src
 
-- # Not Work
+- ## Not Work
+
 - default-Src 
 - base-Url 
 - child-Src 
@@ -108,11 +111,11 @@ ___
 - media-src 
 - object-src 
 
-# Discoverable Domains
-- # Work
-- it
-- com
+### Discoverable Domains
+- ## Work
 
-- # Not Work (More domains will be added in the coming days)
+- .it
+- .com
+
+- ## Not Work (More domains will be added in the coming days)
 - All the others
-
