@@ -19,8 +19,9 @@ Giude:
 
 ___
 
-#Info
+# Info
 
+- # Type CSP Code
 default-src -> The default policy. 
 
 style-src -> Defines the sources for stylesheets. 
@@ -48,6 +49,8 @@ child-src	-> Defines the sources for workers and embedded frame contents.
 connect-src	-> Defines the sources that can be loaded using script interfaces.
 
 ___
+- # Set CSP Works
+
 report – only – Magento reports the policy violations but does not act upon it. It is mainly used for debugging. CSP works in this mode by default.
 
 restrict mode – Magento acts in the case of policy violations.
