@@ -1,8 +1,3 @@
-#nomeModulo
-#fileLog // none
-#setID
-#type Report
-
 # Python
 import argparse
 import os
