@@ -1,6 +1,8 @@
 CspGeneretor
 ======
 
+![Tux, the Linux mascot](https://www.evemilano.com/wp-content/uploads/2017/06/Magento_logo.png)
+
 This script allows you to generate magento CSP module with few simple clicks.
 Form creation is completely dynamic.
 The module version, name, report type, and soon also the policy value id.
