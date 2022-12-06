@@ -1,19 +1,21 @@
 # Csp-Generetor-Magento
 this script allows you to automatically generate a csp_whitelist.xml file
 
+Giude:
+  # Step 1
+  Using DevTool for save log
 
-#Step 1
-Using DevTool for save log
+  # Step 2
+  Run the script and insert
+  1. Name Module 
+  2. Set Report only or Restrict mode 
+  3. Path file log saved in the step 1
 
-#Step 2
-Run the script and insert
-1. Name Module 
-2. Set Report only or Restrict mode 
-3. Path file log saved in the step 1
-
-#Step 3 
-Import folder generated ad Good job
-
+  #S tep 3 
+  1. Import folder generated 
+  2. apply database updates by running `php bin/magento setup:upgrade`
+  3. Flush the cache by running `php bin/magento cache:flush`
+  4. Good job
 
 #Info
 
