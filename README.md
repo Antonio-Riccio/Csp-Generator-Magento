@@ -54,3 +54,33 @@ ___
 - report – only – Magento reports the policy violations but does not act upon it. It is mainly used for debugging. CSP works in this mode by default.
 
 - restrict mode – Magento acts in the case of policy violations.
+
+___
+# Status
+
+# Type CSP Code
+- # Work
+- script-src
+- style-src
+- font-src
+- frame-ancestors
+- connect-src
+- img-src
+
+- # Not Work
+- default-Src 
+- base-Url 
+- child-Src 
+- form-action 	
+- manifest-src 
+- media-src 
+- object-src 
+
+# Discoverable Domains
+- # Work
+- it
+- com
+
+- # Not Work (More domains will be added in the coming days)
+- All the others
+
