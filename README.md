@@ -1,7 +1,34 @@
-CspGeneretor (unofficial Script)
-======
 
-![Tux, the Linux mascot](https://www.evemilano.com/wp-content/uploads/2017/06/Magento_logo.png)
+```
+   _______                    _  ___ _         ___
+  |__   __|         _        | |/ (_) |      _|   \
+     | | ___   ___ | |       | ' / _| |_      |    \
+_____| |/ _ \ / _ \| |_______|  < | | __|_____|     \_______
+_____| | (_) | (_) | |_______| . \| | |_ _____.      _______|
+     |_|\___/ \___/|_____|   |_|\_\_|\__|     |     /
+                                             _|    /
+                                              |___/                         
+                                      
+           __       __  __                        _       
+          /  |_    |  \/  |                      | |      
+         /   |     | \  / | __ _  __ _  ___ _ __ | |_ ___ 
+ _______/    |_____| |\/| |/ _` |/ _` |/ _ \ '_ \| __/ _ \_________
+|_______      _____| |  | | (_| | (_| |  __/ | | | ||  __/_________
+        \    |     |_|  |_|\__,_|\__, |\___|_| |_|\__\___|
+         \   |_                 __/ |                   
+          \__|                 |___/       
+  
+                                            
+```
+
+
+
+# CspGeneretor v1.0 (unofficial Script)  #
+![Magento Logo](https://www.evemilano.com/wp-content/uploads/2017/06/Magento_logo.png)
+
+![Supported Python versions](https://img.shields.io/badge/python_3.11-blue.svg)
+
+Titon Toolkit is a collection of very powerful user interface components built on [React](https://facebook.github.io/react/). Components in Titon follow the [presentational paradigm](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0), which provide full control of how, where, and why components are rendered. Functionality within a component, like jumping to the next slide in a carousel, or toggling a menu, is possible through [contexts](https://facebook.github.io/react/docs/context.html) -- a type of public API.
 
 This script allows you to generate magento CSP module with few simple clicks.
 Form creation is completely dynamic.
