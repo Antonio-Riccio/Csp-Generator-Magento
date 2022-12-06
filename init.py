@@ -1,8 +1,3 @@
-#nomeModulo
-#fileLog // none
-#setID
-#type Report
-
 # Python
 import argparse
 import os
@@ -333,12 +328,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     if (args.nameModule==None):
-        args.nameModule = "csp_magento"
-        #print ("Insert the module name")        
-        #exitVar = True
+        print ("Insert the module name")        
+        exitVar = True
 
     if (args.fileLog==None):
-        args.fileLog = "error.log"
+        args.fileLog = "default"
 
     if (args.setId==None):
         args.setId = 0
@@ -348,7 +342,6 @@ if __name__ == "__main__":
 
     if (args.tra==None):
         args.tra = 0
-
 
     if (args.version==None):
         args.version = "1.0.0"
