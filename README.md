@@ -1,4 +1,4 @@
-CspGeneretor
+CspGeneretor (unofficial Script)
 ======
 
 ![Tux, the Linux mascot](https://www.evemilano.com/wp-content/uploads/2017/06/Magento_logo.png)
