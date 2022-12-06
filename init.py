@@ -90,6 +90,36 @@ def createCsp(args):
         f.write(csp_whitelistVarFile)
         f.close()
     else:
+        initCsp_Whitelist = '''<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+'''
+    
+        policyScriptStart = '''        <policy id="script-src">
+            <values>
+'''
+        policyStyleStart = '''        <policy id="style-src">
+            <values>
+'''
+        policyImgStart = '''        <policy id="img-src">
+            <values>
+'''
+        policyConnectStart = '''        <policy id="connect-src">
+            <values>
+'''
+        policyFontStart = '''        <policy id="font-src">
+            <values>
+'''
+        policyFrameStart = '''        <policy id="frame-src">
+            <values>
+'''
+        policyStop = '''            </values>
+        </policy>
+'''
+        endCsp_Whitelist = '''    </policies>
+</csp_whitelist>
+'''
+        
         defaultSrc = []
         baseUrl = []
         childSrc = []
@@ -137,10 +167,76 @@ def createCsp(args):
                         end = end + 2
                         exit = True
 
-                f = open("test.txt", "a")
-                f.write(line[http:end] + "\n")
-                f.close()
-                print(line[http:end])
+                if("Refused to load the script" in line):
+                    scriptSrc.append(line[http:end])
+                elif("Refused to load the stylesheet" in line):
+                    styleSrc.append(line[http:end])
+                elif("Refused to load the font" in line):
+                    fontSrc.append(line[http:end])
+                elif("Refused to frame" in line):
+                    frameAncestors.append(line[http:end])
+                elif("Refused to connect" in line):
+                    connectSrc.append(line[http:end])
+                elif("Refused to load the image" in line):
+                    imgSrc.append(line[http:end])
+
+
+                f = open("etc/csp_whitelist.xml", "w")
+                f.write(initCsp_Whitelist)
+        
+                # <value id="addthis.com" type="host">*.addthis.com</value>
+                idHost = 0
+
+                if (scriptSrc!=[]):
+                    f.write(policyScriptStart)
+                    for host in scriptSrc:
+                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+                        idHost = idHost +1
+                    f.write(policyStop)
+
+
+                if (styleSrc!=[]):
+                    f.write(policyStyleStart)
+                    for host in styleSrc:
+                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+                        idHost = idHost +1
+                    f.write(policyStop)
+
+                
+                if (fontSrc!=[]):
+                    f.write(policyFontStart)
+                    for host in fontSrc:
+                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+                        idHost = idHost +1
+                    f.write(policyStop)
+
+
+                if (frameAncestors!=[]):
+                    f.write(policyFrameStart)
+                    for host in frameAncestors:
+                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+                        idHost = idHost +1
+                    f.write(policyStop)
+
+
+                if (connectSrc!=[]):
+                    f.write(policyConnectStart)
+                    for host in connectSrc:
+                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+                        idHost = idHost +1
+                    f.write(policyStop)
+
+
+                if (imgSrc!=[]):
+                    f.write(policyImgStart)
+                    for host in imgSrc:
+                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+                        idHost = idHost +1
+                    f.write(policyStop)
+
+                f.write(endCsp_Whitelist)
+
+        f.close()
 
     #config.xml
     moduleVarFile = '''<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
