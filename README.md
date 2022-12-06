@@ -93,8 +93,8 @@ options:
 
 # Status Script
 
-### Type CSP Code
-## Work
+## Type CSP Code
+### Work
 
 - script-src
 - style-src
@@ -103,7 +103,7 @@ options:
 - connect-src
 - img-src
 
-## Not Work
+### Not Work
 
 - default-Src 
 - base-Url 
@@ -113,11 +113,11 @@ options:
 - media-src 
 - object-src 
 
-### Discoverable Domains
-## Work
+## Auto detect Domains (detect host in log file)
+### Work
 
 - .it
 - .com
 
-## Not Work (More domains will be added in the coming days)
+### Not Work (More domains will be added in the coming days)
 - All the others
