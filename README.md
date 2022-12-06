@@ -54,7 +54,7 @@ options:
 
 # Info
 
-- # Type CSP Code
+# Type CSP Code
 - default-src -> The default policy. 
 
 - style-src -> Defines the sources for stylesheets. 
