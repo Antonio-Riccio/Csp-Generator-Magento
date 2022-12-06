@@ -11,7 +11,7 @@ Giude:
   2. Set Report only or Restrict mode 
   3. Path file log saved in the step 1
 
-  #S tep 3 
+  # Step 3 
   1. Import folder generated 
   2. apply database updates by running `php bin/magento setup:upgrade`
   3. Flush the cache by running `php bin/magento cache:flush`
@@ -19,8 +19,8 @@ Giude:
 
 #Info
 
-default-src -> The default policy.
-style-src -> Defines the sources for stylesheets.
+default-src -> The default policy. \n
+style-src -> Defines the sources for stylesheets. \n
 font-src -> Defines which sources can serve fonts.
 object-src -> Defines the sources for the ,, and elements.
 script-src -> Defines the sources for JavaScript elements.
