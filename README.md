@@ -117,7 +117,7 @@ options:
    Remove all not CSP errors from the log file
   
    ```
-   python3 Csp-Generetor-Magento/CspGeneretor.py -cc "error.log"
+   python3 CspGeneretor.py -cc "error.log"
    ```
 
 ---------------------------
