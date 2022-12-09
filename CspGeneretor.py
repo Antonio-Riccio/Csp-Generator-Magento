@@ -1,14 +1,23 @@
+#dev (ok)
+
 # Python
 import argparse
 import os
 
 def createCsp(args):
-    print(args)
+    creatCspWhitelist(args)
+    createCspConfig(args)
+    createCspModule(args)
+    createCspRegistration(args)
+    createCspComposer(args)
+    return 0
 
+
+#csp_whitelist.xml
+def creatCspWhitelist(args):
     if (not os.path.exists('etc')):
-        os.mkdir('etc')
+            os.mkdir('etc')
 
-    #csp_whitelist.xml
     if (args.fileLog=="default"):
         csp_whitelistVarFile = '''<?xml version="1.0"?>
 <csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
@@ -85,156 +94,11 @@ def createCsp(args):
         f.write(csp_whitelistVarFile)
         f.close()
     else:
-        initCsp_Whitelist = '''<?xml version="1.0"?>
-<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
-    <policies>
-'''
-    
-        policyScriptStart = '''        <policy id="script-src">
-            <values>
-'''
-        policyStyleStart = '''        <policy id="style-src">
-            <values>
-'''
-        policyImgStart = '''        <policy id="img-src">
-            <values>
-'''
-        policyConnectStart = '''        <policy id="connect-src">
-            <values>
-'''
-        policyFontStart = '''        <policy id="font-src">
-            <values>
-'''
-        policyFrameStart = '''        <policy id="frame-src">
-            <values>
-'''
-        policyStop = '''            </values>
-        </policy>
-'''
-        endCsp_Whitelist = '''    </policies>
-</csp_whitelist>
-'''
+        generatorCspWhitelist(args.fileLog)
         
-        
-        frameAncestors = []
-        imgSrc = []
-        connectSrc = []
-        fontSrc = []
-        defaultSrc = []
-        baseUrl = []
-        childSrc = []
-        formAction = []	
-        manifestSrc = []
-        mediaSrc = []
-        objectSrc = []
-        scriptSrc = []
-        styleSrc = []
 
-        f = open(args.fileLog,"r")
-        lines = f.readlines()
-
-        for line in lines:
-            if ('[Report Only]' in line):
-                http=0
-                exit = False
-                while exit == False:
-                    http=http+1
-                    if (line[http]=='h'):
-                        if (
-                            line[http+1] == 't' and 
-                            line[http+2] == 't' and 
-                            line[http+3] == 'p' and 
-                            line[http+4] == 's' 
-                        ):
-                            exit = True
-                
-                end=http + 4
-                exit = False
-                while exit == False:
-                    end=end+1
-                    if  (
-                        line[end]=='c'     and 
-                        line[end+1] == 'o' and 
-                        line[end+2] == 'm' 
-                        ):
-                        end = end + 3
-                        exit = True
-                    elif(line[end]=='i' and line[end+1] == 't'):
-                        end = end + 2
-                        exit = True
-
-                if("Refused to load the script" in line):
-                    scriptSrc.append(line[http:end])
-                elif("Refused to load the stylesheet" in line):
-                    styleSrc.append(line[http:end])
-                elif("Refused to load the font" in line):
-                    fontSrc.append(line[http:end])
-                elif("Refused to frame" in line):
-                    frameAncestors.append(line[http:end])
-                elif("Refused to connect" in line):
-                    connectSrc.append(line[http:end])
-                elif("Refused to load the image" in line):
-                    imgSrc.append(line[http:end])
-
-
-                f = open("etc/csp_whitelist.xml", "w")
-                f.write(initCsp_Whitelist)
-        
-                # <value id="addthis.com" type="host">*.addthis.com</value>
-                idHost = 0
-
-                if (scriptSrc!=[]):
-                    f.write(policyScriptStart)
-                    for host in scriptSrc:
-                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
-                        idHost = idHost +1
-                    f.write(policyStop)
-
-
-                if (styleSrc!=[]):
-                    f.write(policyStyleStart)
-                    for host in styleSrc:
-                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
-                        idHost = idHost +1
-                    f.write(policyStop)
-
-                
-                if (fontSrc!=[]):
-                    f.write(policyFontStart)
-                    for host in fontSrc:
-                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
-                        idHost = idHost +1
-                    f.write(policyStop)
-
-
-                if (frameAncestors!=[]):
-                    f.write(policyFrameStart)
-                    for host in frameAncestors:
-                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
-                        idHost = idHost +1
-                    f.write(policyStop)
-
-
-                if (connectSrc!=[]):
-                    f.write(policyConnectStart)
-                    for host in connectSrc:
-                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
-                        idHost = idHost +1
-                    f.write(policyStop)
-
-
-                if (imgSrc!=[]):
-                    f.write(policyImgStart)
-                    for host in imgSrc:
-                        f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
-                        idHost = idHost +1
-                    f.write(policyStop)
-
-                f.write(endCsp_Whitelist)
-
-        f.close()
-
-    #config.xml
+#config.xml
+def createCspConfig(args):
     moduleVarFile = '''<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <csp>
@@ -259,8 +123,8 @@ def createCsp(args):
     f.write(moduleVarFile)
     f.close()
 
-
-    #module.xml
+#module.xml
+def createCspModule(args):
     moduleVarFile = '''<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
     <module name="'''+ args.nameModule + '''" setup_version="'''+args.version+'''"/>
 </config>
@@ -270,8 +134,9 @@ def createCsp(args):
     f.write(moduleVarFile)
     f.close()
 
+#registration.php
+def createCspRegistration(args):
 
-    #registration.php
     registrationVarFile = '''<?php
 use Magento\Framework\Component\ComponentRegistrar;
 
@@ -282,8 +147,8 @@ ComponentRegistrar::register(ComponentRegistrar::MODULE, ' '''+args.nameModule+'
     f.write(registrationVarFile)
     f.close()
 
-
-    #composer.json
+#composer.php
+def createCspComposer(args):    
     composerVarFile = '''{
   "name": "csp/module-csp",
   "version": "'''+args.version+'''",
@@ -311,8 +176,266 @@ ComponentRegistrar::register(ComponentRegistrar::MODULE, ' '''+args.nameModule+'
     f.write(composerVarFile)
     f.close()
 
+def generatorCspWhitelist(nameFileLog):
+    
+    frameAncestors = []
+    imgSrc = []
+    connectSrc = []
+    fontSrc = []
+    defaultSrc = []
+    baseUrl = []
+    childSrc = []
+    formAction = []	
+    manifestSrc = []
+    mediaSrc = []
+    objectSrc = []
+    scriptSrc = []
+    styleSrc = []
+    typeError = ''
+    
+    initCsp_Whitelist = '''<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+'''
+    
+    policyScriptStart = '''        <policy id="script-src">
+            <values>
+'''
+    policyStyleStart = '''        <policy id="style-src">
+            <values>
+'''
+    policyImgStart = '''        <policy id="img-src">
+            <values>
+'''
+    policyConnectStart = '''        <policy id="connect-src">
+            <values>
+'''
+    policyFontStart = '''        <policy id="font-src">
+            <values>
+'''
+    policyFrameStart = '''        <policy id="frame-src">
+            <values>
+'''
+    policyStop = '''            </values>
+        </policy>
+'''
+    endCsp_Whitelist = '''    </policies>
+</csp_whitelist>
+'''
+
+    f = open(nameFileLog,"r")
+    lines = f.readlines()
+
+    for line in lines:
+        if ('<URL>' not in line):
+            typeError=None
+            
+            if("Refused to load the script" in line):
+                typeError="script-src"
+            elif("Refused to load the stylesheet" in line):
+                typeError="style-src"
+            elif("Refused to load the font" in line):
+                typeError="font-src"
+            elif("Refused to frame" in line):
+                typeError="frame-src"
+            elif("Refused to connect" in line):
+                typeError="connect-src"
+            elif("Refused to load the image" in line):
+                typeError="img-src"
+            
+            if(typeError!=None):
+                http=0
+                exit = False
+                while exit == False:
+                    http=http+1
+                    if (line[http]=='h'):
+                        if (
+                            line[http+1] == 't' and 
+                            line[http+2] == 't' and 
+                            line[http+3] == 'p' 
+                        ):
+                            exit = True
+                            if (line[http+4] == 's'):
+                                end=http + 4
+                            else:
+                                end=http + 3
+                exit = False
+                while exit == False:
+                    end=end+1
+
+                    if(getTldFour(line, end)):
+                        end = end + 4
+                        exit = True
+                    elif  (getTldThree(line, end)):
+                        end = end + 3
+                        exit = True
+                    elif(getTldDuo(line, end)):
+                        end = end + 2
+                        exit = True
+
+                if(typeError=="script-src"):
+                    scriptSrc.append(line[http:end])
+                elif(typeError=="style-src"):
+                    styleSrc.append(line[http:end])
+                elif(typeError=="font-src"):
+                    fontSrc.append(line[http:end])
+                elif(typeError=="frame-src"):
+                    frameAncestors.append(line[http:end])
+                elif(typeError=="connect-src"):
+                    connectSrc.append(line[http:end])
+                elif(typeError=="img-src"):
+                    imgSrc.append(line[http:end])
+
+    f = open("etc/csp_whitelist.xml", "w")
+    f.write(initCsp_Whitelist)
+
+    # <value id="addthis.com" type="host">*.addthis.com</value>
+    idHost = 0
+    if (scriptSrc!=[]):
+        f.write(policyScriptStart)
+        for host in scriptSrc:
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost = idHost +1
+        f.write(policyStop)
+
+
+    if (styleSrc!=[]):
+        f.write(policyStyleStart)
+        for host in styleSrc:
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost = idHost +1
+        f.write(policyStop)
+
+
+    if (fontSrc!=[]):
+        f.write(policyFontStart)
+        for host in fontSrc:
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost = idHost +1
+        f.write(policyStop)
+
+
+    if (frameAncestors!=[]):
+        f.write(policyFrameStart)
+        for host in frameAncestors:
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost = idHost +1
+        f.write(policyStop)
+
+
+    if (connectSrc!=[]):
+        f.write(policyConnectStart)
+        for host in connectSrc:
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost = idHost +1
+        f.write(policyStop)
+
+
+    if (imgSrc!=[]):
+        f.write(policyImgStart)
+        for host in imgSrc:
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost = idHost +1
+        f.write(policyStop)
+
+    f.write(endCsp_Whitelist)
+
+    f.close()
     return 0
 
+def getTldDuo(line, end):
+    tld = [
+           'ac','ad','ae',
+           'af','ag','ai','al',
+           'am','an','ao','aq',
+           'ar','as','at','au',
+           'aw','ax','az','ba',
+           'bb','bd','be','bf',
+           'bg','bh','bi','bj',
+           'bm','bn','bo','br',
+           'bs','bt','bv','bw',
+           'by','bz','ca','cc',
+           'cd','cf','cg','ch',
+           'ci','ck','cl','cm',
+           'cn','co','cr','cu',
+           'cv','cx','cy','cz',
+           'de','dj','dk','dm',
+           'do','dz','ec','ee',
+           'eg','eh','er','es',
+           'et','eu','fi','fj',
+           'fk','fm','fo','fr',
+           'ga','gb','gd','ge',
+           'gf','gg','gh','gi',
+           'gl','gm','gn','gp',
+           'gq','gr','gs','gt',
+           'gu','gw','gy','hk',
+           'hm','hn','hr','ht',
+           'hu','id','ie','il',
+           'im','in','io','iq',
+           'ir','is','it','je',
+           'jm','jo','jp','ke',
+           'kg','kh','ki','km',
+           'kn','kp','kr','kw',
+           'ky','kz','la','lb',
+           'lc','li','lk','lr' 
+          ]
+
+    for tldOne in tld:
+        if (tldOne[0] == line[end] and 
+            tldOne[1]== line[end+1]):
+            if (line[end+2] == '\'' or 
+                line[end+2] == '/'):
+                return True
+    return False
+
+def getTldThree(line, end):   
+    tld = ['biz', 'cat', 'com', 
+           'edu','gov', 'int', 'mil'] 
+
+    for tldOne in tld:
+        if (tldOne[0] == line[end] and 
+            tldOne[1]== line[end+1] and
+            tldOne[2]== line[end+2]):
+            if (line[end+3] == '\'' or 
+                line[end+3] == '/'):
+                return True
+    return False
+
+
+def getTldFour(line, end):   
+    tld = ['aero', 'asia', 'coop',
+           'info', 'jobs','mobi'] 
+
+    for tldOne in tld:
+        if (tldOne[0] == line[end] and 
+            tldOne[1]== line[end+1] and
+            tldOne[2]== line[end+2] and
+            tldOne[3]== line[end+3] ):
+            if (line[end+4] == '\'' or 
+                line[end+4] == '/'):
+                return True
+    return False
+
+
+def clearFileLog(nameFileLog):    
+    fileLogClear = open(os.path.splitext(nameFileLog)[0]+'_clear.log',"w")
+
+    fileLog = open(os.path.splitext(nameFileLog)[1] != '.log',"r")
+    lines = fileLog.readlines()
+
+    for line in lines:
+        if( 
+            "Refused to load the script" in line or 
+            "Refused to load the stylesheet" in line or            
+            "Refused to load the font" in line or 
+            "Refused to frame" in line or 
+            "Refused to connect" in line or
+            "Refused to load the image" in line ):
+            fileLogClear.write(line+"\n")
+
+    fileLog.close()
+    fileLogClear.close()
+    return 0
 
 if __name__ == "__main__":
     exitVar = False
@@ -334,7 +457,12 @@ if __name__ == "__main__":
 
     if (args.fileLog==None):
         args.fileLog = "default"
-
+    elif(os.path.splitext(args.fileLog)[1] != '.log' or
+         os.path.splitext(args.fileLog)[1] != '.txt'):
+         print ("Insert a file .txt or .log ")        
+         exitVar = True
+        
+    
     if (args.setId==None):
         args.setId = 0
 
