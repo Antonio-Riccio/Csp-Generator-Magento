@@ -201,10 +201,5 @@ options:
 | l | la lb lc li lk lr       
 | m | mil mobi
 
-
-
-
-
-
 ### Not Work 
 - All the others
