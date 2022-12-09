@@ -1,5 +1,6 @@
-#main
+#main (ok)
 
+# Python
 import argparse
 import os
 
@@ -95,6 +96,7 @@ def creatCspWhitelist(args):
     else:
         generatorCspWhitelist(args.fileLog)
         
+
 #config.xml
 def createCspConfig(args):
     moduleVarFile = '''<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
@@ -124,7 +126,7 @@ def createCspConfig(args):
 #module.xml
 def createCspModule(args):
     moduleVarFile = '''<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="'''+ args.nameModule + '''" setup_version="'''+args.version+'''"/>
+    <module name="'''+ args.nameMod + '''" setup_version="'''+args.version+'''"/>
 </config>
 '''
 
@@ -138,7 +140,7 @@ def createCspRegistration(args):
     registrationVarFile = '''<?php
 use Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(ComponentRegistrar::MODULE, ' '''+args.nameModule+''' ', __DIR__);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, ' '''+args.nameMod+''' ', __DIR__);
 '''
 
     f = open("registration.php", "w")
@@ -416,63 +418,147 @@ def getTldFour(line, end):
 
 
 def clearFileLog(nameFileLog):    
-    fileLogClear = open(os.path.splitext(nameFileLog)[0]+'_clear.log',"w")
+    nameFileClear = os.path.splitext(nameFileLog)[0]+'_clear.log'
+    fileLogClear = open(nameFileClear,"w")
 
-    fileLog = open(os.path.splitext(nameFileLog)[1] != '.log',"r")
+    fileLog = open(nameFileLog,"r")
     lines = fileLog.readlines()
 
     for line in lines:
-        if( 
-            "Refused to load the script" in line or 
-            "Refused to load the stylesheet" in line or            
-            "Refused to load the font" in line or 
-            "Refused to frame" in line or 
-            "Refused to connect" in line or
-            "Refused to load the image" in line ):
-            fileLogClear.write(line+"\n")
+        if ('<URL>' not in line):
+            if( 
+                "Refused to load the script" in line or 
+                "Refused to load the stylesheet" in line or            
+                "Refused to load the font" in line or 
+                "Refused to frame" in line or 
+                "Refused to connect" in line or
+                "Refused to load the image" in line ):
+                fileLogClear.write(line+"\n")
 
     fileLog.close()
     fileLogClear.close()
-    return 0
+    return nameFileClear
 
+def stepToStep(args):
+    notFoundFile = True
+
+    args.nameMod = input("Name Module: ")
+
+    NameFile = input("Path file Log: ")
+    while notFoundFile:
+        try:
+            f = open(NameFile)
+            if ('/' in NameFile):
+                NameFileSplit = NameFile.split('/')
+                
+                if( 
+                  os.path.splitext(NameFileSplit[len(NameFileSplit)-1])[1] == '.log' or
+                  os.path.splitext(NameFileSplit[len(NameFileSplit)-1])[1] == '.txt'
+                  ):
+                    notFoundFile = False
+                    f.close()
+            else:
+                if( 
+                  os.path.splitext(NameFile)[1] == '.log' or
+                  os.path.splitext(NameFile)[1] == '.txt'
+                  ):
+                    notFoundFile = False
+                    f.close()
+        except IOError:
+            print("File not found\nRemember add file extension (.txt or .log)\n ")
+            NameFile = input("Path file Log: ")
+
+    args.fileLog = NameFile
+
+    args.version = input("Version Module:")
+    args.setId = input("Id value: ")
+
+    print('\nSet 0 or 1')
+    args.trt = input("Type report storefront: ")
+    args.trt = int (args.trt)
+
+    while args.trt != 0 and args.trt != 1: 
+        print('\nSet 0 or 1')
+        args.trt = input("Type report storefront: ")
+        args.trt = int (args.trt)
+
+    print('\nSet 0 or 1')
+    args.tra = input("Type report admin: ")
+    args.tra =int (args.tra)
+
+    while args.tra != 0 and args.tra != 1: 
+        print('\nSet 0 or 1')
+        args.tra = input("Type report admin: ")
+        args.tra =int (args.tra)
+
+    createCsp(args)
+    
 if __name__ == "__main__":
     exitVar = False
 
     print( "Start CSP script ...")
 
     parser = argparse.ArgumentParser(description="CspGeneretor")
-    parser.add_argument('--nameModule',  type=str, help="Name Module CSP")
-    parser.add_argument('--fileLog',     type=str, help="Path file Log")
-    parser.add_argument('--version',     type=str, help="Version Module")
-    parser.add_argument('--setId',       type=int, help="Id value")
-    parser.add_argument('--trt',         type=int, help="Type report storefront")
-    parser.add_argument('--tra',         type=int, help="Type report admin")
+
+    #______________
+    #|List Function|
+    requiredName = parser.add_argument_group('function')
+
+    #ClearFile
+    requiredName.add_argument('-cc', 
+                               default="out",
+                               required=False, 
+                               type=str, 
+                               help='Run a log file cleanup (-cc 1)')
+    #Step
+    requiredName.add_argument('-st', 
+                              default="out",
+                              required=False, 
+                              type=str, 
+                              help='Run Step to Step CSP script (-st 1)')
+
+    #createCsp
+    parser.add_argument('--nameMod',     type=str, help="Name Module CSP")
+    parser.add_argument('--fileLog',     default="default", type=str, help="Path file Log")
+    parser.add_argument('--version',     default="1.0.0",  type=str, help="Version Module")
+    parser.add_argument('--setId',       default=0,        type=int, help="Id value")
+    parser.add_argument('--trt',         default=0,        type=int, help="Type report storefront")
+    parser.add_argument('--tra',         default=0,        type=int, help="Type report admin")
+
     args = parser.parse_args()
+
+    if(args.cc!='out'):
+        args.cc=clearFileLog(args.cc)
+         
+    if (args.st!='out'):
+        stepToStep(args)
+    else:
+        if (args.nameMod==None):
+            print ("Insert the module name")        
+            exitVar = True
+
+        if (args.fileLog!="default"):
+            try:
+                f = open(args.fileLog)
+                if ('/' in args.fileLog):
+                    NameFileSplit = args.fileLog.split('/')
+                    
+                    if( 
+                    os.path.splitext(NameFileSplit[len(NameFileSplit)-1])[1] == '.log' or
+                    os.path.splitext(NameFileSplit[len(NameFileSplit)-1])[1] == '.txt'
+                    ):
+                        exitVar = True
+                else:
+                    if( 
+                    os.path.splitext(args.fileLog)[1] == '.log' or
+                    os.path.splitext(args.fileLog)[1] == '.txt'
+                    ):
+                        f.close()
+                    
+            except IOError:
+                print("File not found\nRemember add file extension (.txt or .log)\n ")
+            finally:
+                f.close()
     
-    if (args.nameModule==None):
-        print ("Insert the module name")        
-        exitVar = True
-
-    if (args.fileLog==None):
-        args.fileLog = "default"
-    elif(os.path.splitext(args.fileLog)[1] != '.log' or
-         os.path.splitext(args.fileLog)[1] != '.txt'):
-         print ("Insert a file .txt or .log ")        
-         exitVar = True
-        
-    
-    if (args.setId==None):
-        args.setId = 0
-
-    if (args.trt==None):
-        args.trt = 0
-
-    if (args.tra==None):
-        args.tra = 0
-
-    if (args.version==None):
-        args.version = "1.0.0"
-        
-    if (exitVar==False):
-        csp = createCsp(args)
-        exit(csp)
+        if (exitVar==False):
+            createCsp(args)
