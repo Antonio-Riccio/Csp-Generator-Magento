@@ -100,7 +100,6 @@ options:
    ```
    #StepToStep
    python3 CspGeneretor.py -st
-
    ```
   
   # Step 3 
