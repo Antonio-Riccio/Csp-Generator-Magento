@@ -142,9 +142,26 @@ options:
 
 ## Auto detect Domains (detect host in log file)
 ### Work
+| Letter  | Tld    
+|---------|-----------|
+| a | ac ad ae af ag ai al am an ao aq ar as at au aw ax az aero asia
+| b | ba bb bd be bf bg bh bi bj bm bn bo br bs bt bv bw by bz biz
+| c | ca cc cd cf cg ch ci ck cl cm cn co cr cu cv cx cy cz cat com coop
+| d | de dj dk dm do dz ec ee eg eh er 
+| e | es et eu edu
+| f | fi fj fk fm fo fr 
+| g | ga gb gd ge gf gg gh gi gl gm gn gp gq gr gs gt gu gw gy gov
+| h | hk hm hn hr ht hu 
+| i | id ie il im in io iq ir is it int info
+| j | je jm jo jp jobs
+| k | ke kg kh ki km kn kp kr kw ky kz 
+| l | la lb lc li lk lr       
+| m | mil mobi
 
-- .it
-- .com
 
-### Not Work (More domains will be added in the coming days)
+
+
+
+
+### Not Work 
 - All the others
