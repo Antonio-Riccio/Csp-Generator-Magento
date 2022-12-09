@@ -1,6 +1,5 @@
-#dev (ok)
+#main
 
-# Python
 import argparse
 import os
 
@@ -96,7 +95,6 @@ def creatCspWhitelist(args):
     else:
         generatorCspWhitelist(args.fileLog)
         
-
 #config.xml
 def createCspConfig(args):
     moduleVarFile = '''<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
