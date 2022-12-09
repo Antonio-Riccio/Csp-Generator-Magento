@@ -60,6 +60,12 @@ options:
   
   --tra TRA             Type report admin
 
+
+ 
+---------------------------
+
+# Tool
+- # Create Module CSP (tool 1)
   # Step 1
   Using DevTool for save log or using default whitelist (Right click on log in console and save file)
   
@@ -69,17 +75,49 @@ options:
 
   # Step 2
   Run the script and insert
-  1. Name Module --nameModule
-  2. Add log file name --fileLog (if needed)
-  3. Add version --version (by default it is set to 1)
-  4. Add type Id --setId (0=number 1=name Host for the moment it is only numerical)
-  5. Add value for type report storefront --trt (0 or 1)
-  6. Add value for type report admin --tra (0 or 1)
+  
+  1 Name Module --nameModule
+   
+  2 Add log file name --fileLog (if needed)
+  
+  3 Add version --version (by default it is set to 1)
+  
+  4 Add type Id --setId (0=number 1=name Host for the moment it is only numerical)
+  
+  5 Add value for type report storefront --trt (0 or 1)
+  
+  6 Add value for type report admin --tra (0 or 1)
+
+
+   ```
+   #Pre-Set
+   python3 CspGeneretor.py --nameMod "Csp_base" --fileLog "error.log" --version "1.0" --setId 1 --trt 2 --tra 1
+   ```
+
+  or 
+  Run the script step to step
+
+   ```
+   #StepToStep
+   python3 CspGeneretor.py -st
+
+   ```
   
   # Step 3 
-  1. Import Module On Project 
-  2. Run `php bin/magento setup:upgrade`, `php bin/magento setup:di:compile` and `php bin/magento cache:flush`
-  3. Good job
+  
+  1 Import Module On Project 
+  
+  2 Run `php bin/magento setup:upgrade`, `php bin/magento setup:di:compile` and `php bin/magento cache:flush`
+  
+  3 Good job
+  
+
+- # Clear File Log (Tool 2)
+  
+  
+   ```
+   python3 Csp-Generetor-Magento/CspGeneretor.py -cc "error.log"
+   ```
 
 ---------------------------
 
