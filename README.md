@@ -23,7 +23,7 @@ _____| | (_) | (_) | |_______| . \| | |_ _____.      _______|
 
 
 
-# CspGeneretor v1.1 (unofficial Script)  #
+# CspGeneretor v1.0 (unofficial Script)  #
 ![Magento Logo](https://www.evemilano.com/wp-content/uploads/2017/06/Magento_logo.png)
 
 ![Supported Python versions](https://img.shields.io/badge/python_3.11-blue.svg)
@@ -144,23 +144,8 @@ options:
 ### Work
 | Letter  | Tld    
 |---------|-----------|
-| a | ac ad ae af ag ai al am an ao aq ar as at au aw ax az aero asia
-| b | ba bb bd be bf bg bh bi bj bm bn bo br bs bt bv bw by bz biz
-| c | ca cc cd cf cg ch ci ck cl cm cn co cr cu cv cx cy cz cat com coop
-| d | de dj dk dm do dz ec ee eg eh er 
-| e | es et eu edu
-| f | fi fj fk fm fo fr 
-| g | ga gb gd ge gf gg gh gi gl gm gn gp gq gr gs gt gu gw gy gov
-| h | hk hm hn hr ht hu 
-| i | id ie il im in io iq ir is it int info
-| j | je jm jo jp jobs
-| k | ke kg kh ki km kn kp kr kw ky kz 
-| l | la lb lc li lk lr       
-| m | mil mobi
-
-
-
-
+| c | com
+| i | it
 
 
 ### Not Work 
