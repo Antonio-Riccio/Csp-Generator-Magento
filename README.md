@@ -62,6 +62,10 @@ options:
 
   # Step 1
   Using DevTool for save log or using default whitelist (Right click on log in console and save file)
+  
+  ![Alt Text](https://blogger.googleusercontent.com/img/a/AVvXsEgeYnG8v245TffMo1UfIf3aHOEmftW9jCZdqYdfLyDD4GbBzj47yJ07EPwIW3GTiMTD33Y30Y26WQNAcTuJyIsvGCok1RwsaMOivGtmHdMNrh-unacMgzlPvyZPJGxV6098w1FgcWRT1MIvyGZtxiyago3bCclmI-dqpvr6ik2SfTqJfsYInzy8rCko)
+
+
 
   # Step 2
   Run the script and insert
