@@ -104,8 +104,6 @@ $~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
    #Pre-Set
    python3 CspGeneretor.py --nameMod "Csp_base" --fileLog "error.log" --version "1.0" --setId 1 --trt 2 --tra 1
    ```
-  ![Run script Pre-Set](https://blogger.googleusercontent.com/img/a/AVvXsEhjCu5Gve7JdkEVUhRbq0zOO5hU2bnltQplX34qs6ZyT1dXcAWJFVaYruwWhfyclqOzoPlM-Fnv-_Zem7VUvbEPMcRzjZodgsoObc8KxE4v9KE06FfYzqnnCJRUeYxGwLZKcdZnKZqnyUCo_jMytKRB_btAydpxG2IcdzeP-J80OpA00tmPDQLO8zIn)
-  
   
   or 
   Run the script step to step
