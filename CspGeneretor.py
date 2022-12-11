@@ -1,6 +1,7 @@
 #main (ok)
 
 # Python
+from collections import Counter
 import argparse
 import os            
             
@@ -274,17 +275,23 @@ def generatorCspWhitelist(nameFileLog):
                         exit = True
 
                 if(typeError=="script-src"):
-                    scriptSrc.append(line[http:end])
+                    if (line[http:end] not in scriptSrc):
+                        scriptSrc.append(line[http:end])
                 elif(typeError=="style-src"):
-                    styleSrc.append(line[http:end])
+                    if (line[http:end] not in styleSrc):
+                        styleSrc.append(line[http:end])
                 elif(typeError=="font-src"):
-                    fontSrc.append(line[http:end])
+                    if (line[http:end] not in fontSrc):
+                        fontSrc.append(line[http:end])
                 elif(typeError=="frame-src"):
-                    frameAncestors.append(line[http:end])
+                    if (line[http:end] not in frameAncestors):
+                        frameAncestors.append(line[http:end])
                 elif(typeError=="connect-src"):
-                    connectSrc.append(line[http:end])
+                    if (line[http:end] not in connectSrc):
+                        connectSrc.append(line[http:end])
                 elif(typeError=="img-src"):
-                    imgSrc.append(line[http:end])
+                    if (line[http:end] not in imgSrc):
+                        imgSrc.append(line[http:end])
 
     f = open("etc/csp_whitelist.xml", "w")
     f.write(initCsp_Whitelist)
@@ -416,7 +423,6 @@ def getTldFour(line, end):
                 return True
     return False
 
-
 def clearFileLog(nameFileLog):    
     nameFileClear = os.path.splitext(nameFileLog)[0]+'_clear.log'
     fileLogClear = open(nameFileClear,"w")
@@ -513,7 +519,7 @@ def checkFile(nomeFile, numberError):
 
         if (numberError == 2):
             print("Second file not found\nRemember add file extension (.xml)\n ")
-        exit() 
+        exit()  
 
 def mergeFile():
     f = open(args.mf1,"r")
@@ -587,16 +593,19 @@ def mergeFile():
 </csp_whitelist>
 '''
 
-    
     while e0f > 0:
         line = f.readline()
-        
+                
         if ('<policy id="script-src">' in line):
             line = f.readline()
             e0f = e0f - 1 
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
+                if (line not in scriptSrc):
+                    scriptSrc.append(line)
                 scriptSrc.append(line)
                 line = f.readline()
 
@@ -605,8 +614,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                styleSrc.append(line)
+                if (line not in styleSrc):
+                    styleSrc.append(line)
                 line = f.readline()
         
         elif('<policy id="font-src">' in line):
@@ -614,8 +626,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                fontSrc.append(line)
+                if (line not in fontSrc):
+                    fontSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="frame-ancestors">' in line):
@@ -623,8 +638,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                frameAncestors.append(line)
+                if (line not in frameAncestors):
+                    frameAncestors.append(line)
                 line = f.readline()
 
         elif('<policy id="connect-src">' in line):
@@ -632,15 +650,21 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                connectSrc.append(line)
+                if (line not in connectSrc):
+                    connectSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="img-src">' in line):
             e0f = e0f - 1
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                imgSrc.append(line)
+                if (line not in imgSrc):
+                    imgSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="default-Src">' in line):
@@ -648,8 +672,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                defaultSrc.append(line)
+                if (line not in defaultSrc):
+                    defaultSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="base-Url">' in line):
@@ -657,8 +684,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                baseUrl.append(line)
+                if (line not in baseUrl):
+                    baseUrl.append(line)
                 line = f.readline()
 
         elif('<policy id="child-Src">' in line):
@@ -666,8 +696,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                childSrc.append(line)
+                if (line not in childSrc):
+                    childSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="manifest-src">' in line):
@@ -675,8 +708,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                manifestSrc.append(line)
+                if (line not in manifestSrc):
+                    manifestSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="media-src">' in line):
@@ -684,18 +720,24 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
+                if (line not in mediaSrc):
+                    mediaSrc.append(line)
                 mediaSrc.append(line)
                 line = f.readline()
-
 
         elif('<policy id="object-src">' in line):
             line = f.readline()
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                objectSrc.append(line)
+                if (line not in objectSrc):
+                    objectSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="form-action">' in line):
@@ -703,8 +745,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                formAction.append(line)
+                if (line not in formAction):
+                    formAction.append(line)
                 line = f.readline()
 
         e0f = e0f - 1 
@@ -725,7 +770,11 @@ def mergeFile():
             e0f = e0f - 1 
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
+                if (line not in scriptSrc):
+                    scriptSrc.append(line)
                 scriptSrc.append(line)
                 line = f.readline()
 
@@ -734,8 +783,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                styleSrc.append(line)
+                if (line not in styleSrc):
+                    styleSrc.append(line)
                 line = f.readline()
         
         elif('<policy id="font-src">' in line):
@@ -743,8 +795,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                fontSrc.append(line)
+                if (line not in fontSrc):
+                    fontSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="frame-ancestors">' in line):
@@ -752,8 +807,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                frameAncestors.append(line)
+                if (line not in frameAncestors):
+                    frameAncestors.append(line)
                 line = f.readline()
 
         elif('<policy id="connect-src">' in line):
@@ -761,15 +819,21 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                connectSrc.append(line)
+                if (line not in connectSrc):
+                    connectSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="img-src">' in line):
             e0f = e0f - 1
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                imgSrc.append(line)
+                if (line not in imgSrc):
+                    imgSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="default-Src">' in line):
@@ -777,8 +841,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                defaultSrc.append(line)
+                if (line not in defaultSrc):
+                    defaultSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="base-Url">' in line):
@@ -786,8 +853,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                baseUrl.append(line)
+                if (line not in baseUrl):
+                    baseUrl.append(line)
                 line = f.readline()
 
         elif('<policy id="child-Src">' in line):
@@ -795,8 +865,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                childSrc.append(line)
+                if (line not in childSrc):
+                    childSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="manifest-src">' in line):
@@ -804,8 +877,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                manifestSrc.append(line)
+                if (line not in manifestSrc):
+                    manifestSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="media-src">' in line):
@@ -813,7 +889,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
+                if (line not in mediaSrc):
+                    mediaSrc.append(line)
                 mediaSrc.append(line)
                 line = f.readline()
 
@@ -822,8 +902,11 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                objectSrc.append(line)
+                if (line not in objectSrc):
+                    objectSrc.append(line)
                 line = f.readline()
 
         elif('<policy id="form-action">' in line):
@@ -831,92 +914,106 @@ def mergeFile():
             e0f = e0f - 1
             line = f.readline()
             while '</values>' not in line:
+                line = line.split("type='host'>",1)[1]
+                line = line.partition("</value>")[0]
                 e0f = e0f - 1
-                formAction.append(line)
+                if (line not in formAction):
+                    formAction.append(line)
                 line = f.readline()
 
         e0f = e0f - 1 
         
     f.close()
 
-
     f = open("etc/csp_whitelist_merge.xml", "w")
     f.write(initCsp_Whitelist)
-
+    idHost=0
+    
     if (scriptSrc!=[]):
         f.write(policyScriptStart)
         for host in scriptSrc:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
 
     if (styleSrc!=[]):
         f.write(policyStyleStart)
         for host in styleSrc:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
-
 
     if (fontSrc!=[]):
         f.write(policyFontStart)
         for host in fontSrc:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
 
 
     if (frameAncestors!=[]):
         f.write(policyFrameStart)
         for host in frameAncestors:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
 
 
     if (connectSrc!=[]):
         f.write(policyConnectStart)
         for host in connectSrc:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
 
 
     if (imgSrc!=[]):
         f.write(policyImgStart)
         for host in imgSrc:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
 
     if (defaultSrc!=[]):
         f.write(policyDefaultStart)
         for host in defaultSrc:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
 
     if (childSrc!=[]):
         f.write(policyChildStart)
         for host in childSrc:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
 
     if (formAction!=[]):
         f.write(policyFormStart)
         for host in formAction:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
 
     if (manifestSrc!=[]):
         f.write(policyManifestStart)
         for host in manifestSrc:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
 
     if (mediaSrc!=[]):
         f.write(policyMediaStart)
         for host in mediaSrc:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
 
     if (objectSrc!=[]):
         f.write(policyObjectStart)
         for host in objectSrc:
-            f.write(host)
+            f.write("                <value id="+str(idHost)+" type='host'>"+host+"</value>\n")
+            idHost= idHost + 1
         f.write(policyStop)
 
     f.write(endCsp_Whitelist)
@@ -932,7 +1029,7 @@ if __name__ == "__main__":
 
     #______________
     #|List Function|
-    requiredName = parser.add_argument_group('function')
+    requiredName = parser.add_argument_group('Tool')
 
     #ClearFile
     requiredName.add_argument('-cc', 
@@ -971,13 +1068,17 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if (args.mf1!="out" and args.mf2!="out"):
-        #checkFile1
-        checkFile(args.mf1, 1)
         
-        #checkFile2
-        checkFile(args.mf2, 2)
+        if (args.mf1 == args.mf2):
+            print("The inserted white lists are equal and there is no need to merge")
+        else:
+            #checkFile1
+            checkFile(args.mf1, 1)
+            
+            #checkFile2
+            checkFile(args.mf2, 2)
 
-        mergeFile()
+            mergeFile()
     else:
         if (args.mf1!="out"):
             if (args.mf2=="out"):
@@ -1022,3 +1123,6 @@ if __name__ == "__main__":
     
         if (exitVar==False):
             createCsp(args)
+            print( "End CSP script ...")
+
+
