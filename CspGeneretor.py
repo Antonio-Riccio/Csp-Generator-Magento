@@ -2,8 +2,8 @@
 
 # Python
 import argparse
-import os
-
+import os            
+            
 def createCsp(args):
     creatCspWhitelist(args)
     createCspConfig(args)
@@ -493,6 +493,436 @@ def stepToStep(args):
 
     createCsp(args)
     
+def checkFile(nomeFile, numberError):
+    try:
+        f = open(nomeFile)
+        if ('/' in nomeFile):
+            NameFileSplit = nomeFile.split('/')
+            if( 
+            os.path.splitext(nomeFile)[1] == '.xml'
+            ):
+                exitVar = True
+        else:
+            if( 
+            os.path.splitext(nomeFile)[1] == '.xml'
+            ):
+                f.close()
+    except IOError:
+        if (numberError == 1):
+            print("First file not found\nRemember add file extension (.xml)\n ")
+
+        if (numberError == 2):
+            print("Second file not found\nRemember add file extension (.xml)\n ")
+        exit() 
+
+def mergeFile():
+    f = open(args.mf1,"r")
+    e0f = len(f.readlines())
+    f.close()
+
+    f = open(args.mf1,"r")
+
+    scriptSrc = []
+    frameAncestors = []
+    imgSrc = []
+    connectSrc = []
+    fontSrc = []
+    defaultSrc = []
+    baseUrl = []
+    childSrc = []
+    formAction = []	
+    manifestSrc = []
+    mediaSrc = []
+    objectSrc = []
+    styleSrc = []
+
+    initCsp_Whitelist = '''<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+'''
+    
+    policyScriptStart = '''        <policy id="script-src">
+            <values>
+'''
+    policyStyleStart = '''        <policy id="style-src">
+            <values>
+'''
+    policyImgStart = '''        <policy id="img-src">
+            <values>
+'''
+    policyConnectStart = '''        <policy id="connect-src">
+            <values>
+'''
+    policyFontStart = '''        <policy id="font-src">
+            <values>
+'''
+    policyFrameStart = '''        <policy id="frame-src">
+            <values>
+'''
+    policyDefaultStart = '''        <policy id="default-Src">
+            <values>
+'''
+    policyBaseStart = '''        <policy id="base-Url">
+            <values>
+'''
+    policyChildStart = '''        <policy id="child-Src">
+            <values>
+'''
+    policyFormStart = '''        <policy id="form-action">
+            <values>
+'''
+    policyManifestStart = '''        <policy id="manifest-src">
+            <values>
+'''
+    policyMediaStart = '''        <policy id="media-src">
+            <values>
+'''
+    policyObjectStart = '''        <policy id="object-src">
+            <values>
+'''
+    policyStop = '''            </values>
+        </policy>
+'''
+    endCsp_Whitelist = '''    </policies>
+</csp_whitelist>
+'''
+
+    
+    while e0f > 0:
+        line = f.readline()
+        
+        if ('<policy id="script-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1 
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                scriptSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="style-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                styleSrc.append(line)
+                line = f.readline()
+        
+        elif('<policy id="font-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                fontSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="frame-ancestors">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                frameAncestors.append(line)
+                line = f.readline()
+
+        elif('<policy id="connect-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                connectSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="img-src">' in line):
+            e0f = e0f - 1
+            while '</values>' not in line:
+                e0f = e0f - 1
+                imgSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="default-Src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                defaultSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="base-Url">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                baseUrl.append(line)
+                line = f.readline()
+
+        elif('<policy id="child-Src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                childSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="manifest-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                manifestSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="media-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                mediaSrc.append(line)
+                line = f.readline()
+
+
+        elif('<policy id="object-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                objectSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="form-action">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                formAction.append(line)
+                line = f.readline()
+
+        e0f = e0f - 1 
+    f.close()
+
+    f = open(args.mf2,"r")
+    e0f = len(f.readlines())
+    f.close()
+    
+    f = open(args.mf2,"r")
+    line = f.readline()
+     
+    while e0f > 0:
+        line = f.readline()
+                
+        if ('<policy id="script-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1 
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                scriptSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="style-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                styleSrc.append(line)
+                line = f.readline()
+        
+        elif('<policy id="font-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                fontSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="frame-ancestors">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                frameAncestors.append(line)
+                line = f.readline()
+
+        elif('<policy id="connect-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                connectSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="img-src">' in line):
+            e0f = e0f - 1
+            while '</values>' not in line:
+                e0f = e0f - 1
+                imgSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="default-Src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                defaultSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="base-Url">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                baseUrl.append(line)
+                line = f.readline()
+
+        elif('<policy id="child-Src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                childSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="manifest-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                manifestSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="media-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                mediaSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="object-src">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                objectSrc.append(line)
+                line = f.readline()
+
+        elif('<policy id="form-action">' in line):
+            line = f.readline()
+            e0f = e0f - 1
+            line = f.readline()
+            while '</values>' not in line:
+                e0f = e0f - 1
+                formAction.append(line)
+                line = f.readline()
+
+        e0f = e0f - 1 
+        
+    f.close()
+
+
+    f = open("etc/csp_whitelist_merge.xml", "w")
+    f.write(initCsp_Whitelist)
+
+    if (scriptSrc!=[]):
+        f.write(policyScriptStart)
+        for host in scriptSrc:
+            f.write(host)
+        f.write(policyStop)
+
+    if (styleSrc!=[]):
+        f.write(policyStyleStart)
+        for host in styleSrc:
+            f.write(host)
+        f.write(policyStop)
+
+
+    if (fontSrc!=[]):
+        f.write(policyFontStart)
+        for host in fontSrc:
+            f.write(host)
+        f.write(policyStop)
+
+
+    if (frameAncestors!=[]):
+        f.write(policyFrameStart)
+        for host in frameAncestors:
+            f.write(host)
+        f.write(policyStop)
+
+
+    if (connectSrc!=[]):
+        f.write(policyConnectStart)
+        for host in connectSrc:
+            f.write(host)
+        f.write(policyStop)
+
+
+    if (imgSrc!=[]):
+        f.write(policyImgStart)
+        for host in imgSrc:
+            f.write(host)
+        f.write(policyStop)
+
+    if (defaultSrc!=[]):
+        f.write(policyDefaultStart)
+        for host in defaultSrc:
+            f.write(host)
+        f.write(policyStop)
+
+    if (childSrc!=[]):
+        f.write(policyChildStart)
+        for host in childSrc:
+            f.write(host)
+        f.write(policyStop)
+
+    if (formAction!=[]):
+        f.write(policyFormStart)
+        for host in formAction:
+            f.write(host)
+        f.write(policyStop)
+
+    if (manifestSrc!=[]):
+        f.write(policyManifestStart)
+        for host in manifestSrc:
+            f.write(host)
+        f.write(policyStop)
+
+    if (mediaSrc!=[]):
+        f.write(policyMediaStart)
+        for host in mediaSrc:
+            f.write(host)
+        f.write(policyStop)
+
+    if (objectSrc!=[]):
+        f.write(policyObjectStart)
+        for host in objectSrc:
+            f.write(host)
+        f.write(policyStop)
+
+    f.write(endCsp_Whitelist)
+
+    f.close()
+
 if __name__ == "__main__":
     exitVar = False
 
@@ -517,6 +947,19 @@ if __name__ == "__main__":
                               type=str, 
                               help='Run Step to Step CSP script (-st 1)')
 
+    #Merge file 1
+    requiredName.add_argument('-mf1', 
+                            default="out",
+                            required=False, 
+                            type=str, 
+                            help='Merge 2 whitelists (-mf1 "fileLog1.log")')
+    #Merge file 2
+    requiredName.add_argument('-mf2', 
+                            default="out",
+                            required=False, 
+                            type=str, 
+                            help='Merge 2 whitelists (-mf2 "fileLog2.log")')
+
     #createCsp
     parser.add_argument('--nameMod',     type=str, help="Name Module CSP")
     parser.add_argument('--fileLog',     default="default", type=str, help="Path file Log")
@@ -526,6 +969,23 @@ if __name__ == "__main__":
     parser.add_argument('--tra',         default=0,        type=int, help="Type report admin")
 
     args = parser.parse_args()
+
+    if (args.mf1!="out" and args.mf2!="out"):
+        #checkFile1
+        checkFile(args.mf1, 1)
+        
+        #checkFile2
+        checkFile(args.mf2, 2)
+
+        mergeFile()
+    else:
+        if (args.mf1!="out"):
+            if (args.mf2=="out"):
+                print ("Insert the second file")
+
+        if (args.mf2!="out"):
+            if (args.mf1=="out"):
+                print ("Insert the first file")
 
     if(args.cc!='out'):
         args.cc=clearFileLog(args.cc)
