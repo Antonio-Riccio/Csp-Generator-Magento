@@ -23,7 +23,7 @@ _____| | (_) | (_) | |_______| . \| | |_ _____.      _______|
 
 
 
-# CspGeneretor v1.2 (unofficial Script)  #
+# CspGeneretor v1.3 (unofficial Script)  #
 ![Magento Logo](https://www.evemilano.com/wp-content/uploads/2017/06/Magento_logo.png)
 
 ![Supported Python versions](https://img.shields.io/badge/python_3.11-blue.svg)
