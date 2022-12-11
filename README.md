@@ -102,7 +102,7 @@ $~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
 
    ```
    #Pre-Set
-   python3 CspGeneretor.py --nameMod "Csp_base" --fileLog "error.log" --version "1.0" --setId 1 --trt 2 --tra 1
+   python3 CspGeneretor.py --nameMod "Csp_base" --fileLog "error.log" --version "1.0" --setId 0 --trt 1 --tra 1
    ```
   
   or 
