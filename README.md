@@ -131,7 +131,7 @@ $~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
    ```
 
 - # Merge Whitelist (Tool 3)
-   Merge two whitelists
+   Merge two whitelists and remove duplicate host
    ```
    python3 CspGeneretor.py -mf1 "etc/csp_whitelist1.xml" -mf2 "etc/csp_whitelist2.xml"
    ```
