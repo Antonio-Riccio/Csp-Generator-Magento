@@ -1,7 +1,6 @@
 #main (ok)
 
 # Python
-from collections import Counter
 import argparse
 import os            
             
