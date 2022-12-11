@@ -46,19 +46,30 @@ Usage: CspGeneretor.py [-h] [--nameModule NAMEMODULE] [--fileLog FILELOG] [--ver
 
 options:
 
-  -h, --help            show this help message and exit
+$~~~~~~~~~~~$  -h, --help            show this help message and exit
   
-  --nameModule          Name Module CSP
+$~~~~~~~~~~~$  --nameModule          Name Module CSP
   
-  --fileLog FILELOG     Path file Log
+$~~~~~~~~~~~$  --fileLog FILELOG     Path file Log
   
-  --version VERSION     Version Module
+$~~~~~~~~~~~$  --version VERSION     Version Module
   
-  --setId SETID         Id value (for the moment it is only numerical)
+$~~~~~~~~~~~$  --setId SETID         Id value (for the moment it is only numerical)
   
-  --trt TRT             Type report storefront
+$~~~~~~~~~~~$  --trt TRT             Type report storefront
   
-  --tra TRA             Type report admin
+$~~~~~~~~~~~$  --tra TRA             Type report admin
+  
+  
+Tool:
+
+$~~~~~~~~~~~$  -cc CC             Run a log file cleanup (-cc 1)
+  
+$~~~~~~~~~~~$  -st ST             Run Step to Step CSP script (-st 1)
+  
+$~~~~~~~~~~~$  -mf1 MF1           Merge 2 whitelists (-mf1 "fileLog1.log")
+  
+$~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
 
 
  
@@ -117,6 +128,12 @@ options:
   
    ```
    python3 CspGeneretor.py -cc "error.log"
+   ```
+
+- # Merge Whitelist (Tool 3)
+   Merge two whitelists
+   ```
+   python3 CspGeneretor.py -mf1 "etc/csp_whitelist1.xml" -mf2 "etc/csp_whitelist2.xml"
    ```
 
 ---------------------------
