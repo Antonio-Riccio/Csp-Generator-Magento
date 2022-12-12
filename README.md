@@ -177,7 +177,8 @@ $~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
 
 # Status Script
 
-## Type CSP Code
+- # (Tool 1)
+## Type CSP Code 
 ### Work
 
 - script-src
@@ -217,3 +218,10 @@ $~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
 
 ### Not Work 
 - All the others
+
+- # (Tool 2)
+Work
+
+- # (Tool 3)
+Work 
+
