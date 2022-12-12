@@ -28,8 +28,6 @@ _____| | (_) | (_) | |_______| . \| | |_ _____.      _______|
 
 ![Supported Python versions](https://img.shields.io/badge/python_3.11-blue.svg)
 
-Titon Toolkit is a collection of very powerful user interface components built on [React](https://facebook.github.io/react/). Components in Titon follow the [presentational paradigm](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0), which provide full control of how, where, and why components are rendered. Functionality within a component, like jumping to the next slide in a carousel, or toggling a menu, is possible through [contexts](https://facebook.github.io/react/docs/context.html) -- a type of public API.
-
 This script allows you to generate magento CSP module with few simple clicks.
 Form creation is completely dynamic.
 The module version, name, report type, and soon also the policy value id.
