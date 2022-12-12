@@ -78,7 +78,7 @@ $~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
   # Step 1
   Using DevTool for save log or using default whitelist (Right click on log in console and save file)
   
-  ![Save File Log]()
+  ![Save File Log](https://blogger.googleusercontent.com/img/a/AVvXsEjmkRMaFKBbKdfARUDh1nbBCTAgOpwuPaWmM3NSLl1eBs2qRaCCBybMggtjMa5Q3Su1ngwpjejOiPqgF-SmNuKJZr-g4o4arlSC3At8dheurT4kQrsDs9f3wqAyBIKzsaCF7LYLkufmG6_Z8Zq30h6Cea3RlSNPjYMwoYEeovC02-hrqBEEJVsde9d4)
 
 
 
