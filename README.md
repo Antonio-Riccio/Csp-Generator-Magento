@@ -180,9 +180,9 @@ $~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
 
 | Tool  | Status    
 |---------|---------|
-| tool 1  | Work partly   |
-| tool 2  | Work    |
-| tool 3  | Work    |
+| Tool 1  | Work partly   |
+| Tool 2  | Everything Works    |
+| Tool 3  | Everything Works    |
 
 
 - # (Tool 1)
