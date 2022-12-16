@@ -100,7 +100,7 @@ $~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
 
    ```
    #Pre-Set
-   python3 CspGeneretor.py --nameMod "Csp_base" --fileLog "error.log" --version "1.0" --setId 1 --trt 2 --tra 1
+   python3 CspGeneretor.py --nameMod "Csp_base" --fileLog "error.log" --version "1.0" --setId 0 --trt 1 --tra 1
    ```
   
   or 
@@ -129,7 +129,7 @@ $~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
    ```
 
 - # Merge Whitelist (Tool 3)
-   Merge two whitelists
+   Merge two whitelists and remove duplicate host
    ```
    python3 CspGeneretor.py -mf1 "etc/csp_whitelist1.xml" -mf2 "etc/csp_whitelist2.xml"
    ```
@@ -177,7 +177,16 @@ $~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
 
 # Status Script
 
-## Type CSP Code
+
+| Tool  | Status    
+|---------|---------|
+| Tool 1  | Work partly   |
+| Tool 2  | Everything Works    |
+| Tool 3  | Everything Works    |
+
+
+- # (Tool 1)
+## Type CSP Code 
 ### Work
 
 - script-src
@@ -217,3 +226,4 @@ $~~~~~~~~~~~$  -mf2 MF2           Merge 2 whitelists (-mf2 "fileLog2.log")
 
 ### Not Work 
 - All the others
+
